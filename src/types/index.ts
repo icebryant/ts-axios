@@ -11,9 +11,9 @@ export type Method =
   | 'OPTIONS'
   | 'put'
   | 'PUT'
-  |'patch'
-  |'PATCH'
-  export interface AxiosRequestConfig {
+  | 'patch'
+  | 'PATCH'
+export interface AxiosRequestConfig {
   method?: Method
   url: string
   data?: any
