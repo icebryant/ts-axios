@@ -28,10 +28,10 @@ router.get('/simple/get', function(req, res) {
   })
 })
 router.get('/base/get', function(req, res) {
-  res.json(req.query)
+  res.send({ a: 'adadasas' })
 })
 router.post('/base/post', function(req, res) {
-  res.json(req.body)
+  res.send({ a: 'afadsadsada' })
 })
 router.post('/base/buffer', function(req, res) {
   let msg = []
