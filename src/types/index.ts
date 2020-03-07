@@ -1,4 +1,5 @@
 import { promises } from 'dns'
+import { prototype } from 'events'
 
 export type Method =
   | 'get'
@@ -23,6 +24,7 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
+  [prototype:string]:any
 }
 export interface AxiosResponse<T = any> {
   data: T
@@ -41,6 +43,11 @@ export interface AxiosError extends Error {
   response?: AxiosResponse
 }
 export interface Axios {
+  defaults:AxiosRequestConfig
+  interceptors:{
+    request:AxiosInterceptorManager<AxiosRequestConfig>
+    response:AxiosInterceptorManager<AxiosResponse>
+  }
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -56,7 +63,7 @@ export interface AxiosInstance extends Axios {
 }
 
 export interface AxiosInterceptorManager<T> {
-  use(resolved: ResolvedFn<T>, rejected: RejectedFn): number
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
   eject(id: number): void
 }
 export interface ResolvedFn<T> {
